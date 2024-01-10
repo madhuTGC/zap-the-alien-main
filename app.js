@@ -759,66 +759,6 @@ function onGameOver(){
 
 
 
-// var jet = document.getElementById("jet");
-// var board = document.getElementById("board");
-
-// window.addEventListener("keydown", (e) => {
-//   var left = parseInt(window.getComputedStyle(jet).getPropertyValue("left"));
-//   if (e.key == "ArrowLeft" && left > 0) {
-//     jet.style.left = left - 10 + "px";
-//   }
-//   //460  =>  board width - jet width
-//   else if (e.key == "ArrowRight" && left <= 1500) {
-//     jet.style.left = left + 10 + "px";
-//   }
-
-//   if (e.key == "ArrowUp" || e.keyCode == 32) {
-//     //32 is for space key
-//     var bullet = document.createElement("div");
-//     bullet.classList.add("bullets");
-//     board.appendChild(bullet);
-
-//     var movebullet = setInterval(() => {
-//       var rocks = document.getElementsByClassName("rocks");
-
-//       for (var i = 0; i < rocks.length; i++) {
-//         var rock = rocks[i];
-//         if (rock != undefined) {
-//           var rockbound = rock.getBoundingClientRect();
-//           var bulletbound = bullet.getBoundingClientRect();
-
-//           //Condition to check whether the rock/alien and the bullet are at the same position..!
-//           //If so,then we have to destroy that rock
-
-//           if (
-//             bulletbound.left >= rockbound.left &&
-//             bulletbound.right <= rockbound.right &&
-//             bulletbound.top <= rockbound.top &&
-//             bulletbound.bottom <= rockbound.bottom
-//           ) {
-//             rock.parentElement.removeChild(rock); //Just removing that particular rock;
-//             displayQuestion();
-
-            
-//           }
-//         }
-//       }
-//       var bulletbottom = parseInt(
-//         window.getComputedStyle(bullet).getPropertyValue("bottom")
-//       );
-
-//       //Stops the bullet from moving outside the gamebox
-//       if (bulletbottom >= 1000) {
-//         clearInterval(movebullet);
-//       }
-
-//       bullet.style.left = left + "px"; //bullet should always be placed at the top of my jet..!
-//       bullet.style.bottom = bulletbottom + 3 + "px";
-//     });
-//   }
-// });
-
-
 var jet = document.getElementById("jet");
 var board = document.getElementById("board");
 var touchStartX;
@@ -915,7 +855,7 @@ var moverocks = setInterval(moveRocks, 100);
 function generateRocks() {
   if (!isGamePaused) {
     // Introduce a random condition to decrease the quantity of rocks
-    if (Math.random() < 0.5) {
+    if (Math.random() < 0.2) {
       var rock = document.createElement("div");
       rock.classList.add("rocks");
       // rock.style.left = "0";
@@ -938,7 +878,7 @@ function moveRocks() {
           window.getComputedStyle(rock).getPropertyValue("left")
         );
 
-        rock.style.left = rockleft + 40 + "px"; // Adjust the value as needed
+        rock.style.left = rockleft + 30 + "px"; // Adjust the value as needed
       }
     }
   }
