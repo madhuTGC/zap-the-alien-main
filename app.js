@@ -608,6 +608,11 @@ function displayQuestion() {
     const currentQuestion = QuestionList[currentQuestionIndex];
     displayQuestionInModal(QuestionList[currentQuestionIndex]);
     currentQuestionIndex++;
+    backgroundMusic.pause();
+    // const backgroundMusic1 = document.getElementById("backgroundMusic1");
+
+    // backgroundMusic1.play()
+
   }
   //  else {
   //     currentQuestionIndex = 0;
@@ -743,18 +748,21 @@ function resumeGame() {
     // window.requestAnimationFrame(gamePlay);
     isGamePaused = false;
     generaterocks = setInterval(generateRocks, 1000);
-    moverocks = setInterval(moveRocks,1000);
+    moverocks = setInterval(moveRocks,100);
+    backgroundMusic.play();
+
 
   }
   else {
     onGameOver()
+    showNewPopup()
 
   }
   
 }
 
 function onGameOver(){
-  alert("game over")
+  isGamePaused= true
 }
 
 
@@ -855,7 +863,7 @@ var moverocks = setInterval(moveRocks, 100);
 function generateRocks() {
   if (!isGamePaused) {
     // Introduce a random condition to decrease the quantity of rocks
-    if (Math.random() < 0.2) {
+    if (Math.random() < 0.3) {
       var rock = document.createElement("div");
       rock.classList.add("rocks");
       // rock.style.left = "0";
@@ -866,6 +874,10 @@ function generateRocks() {
     }
   }
 }
+
+
+
+
 
 function moveRocks() {
   if (!isGamePaused) {
@@ -878,7 +890,7 @@ function moveRocks() {
           window.getComputedStyle(rock).getPropertyValue("left")
         );
 
-        rock.style.left = rockleft + 30 + "px"; // Adjust the value as needed
+        rock.style.left = rockleft + 20 + "px"; 
       }
     }
   }
@@ -889,15 +901,9 @@ function moveRocks() {
 
 
 
-
 var jet = document.getElementById("jet");
 var board = document.getElementById("board");
 
-// For arrow keys (left and right) on desktop
-window.addEventListener("keydown", (e) => {
-  // Your existing key handling logic here
-  // ...
-});
 
 // For touch events on mobile
 var touchStartX;
@@ -921,11 +927,8 @@ jet.addEventListener("touchmove", (e) => {
   touchStartX = touchMoveX;
 });
 
-// For shooting bullets on mobile
-document.addEventListener("touchend", (e) => {
-  // Your existing bullet shooting logic here
-  // ...
-});
+// document.addEventListener("touchend", (e) => {
+// });
 
 
 
@@ -934,11 +937,74 @@ document.addEventListener("touchend", (e) => {
 
 // Add this at the beginning of your existing JavaScript file
 
+// document.addEventListener("DOMContentLoaded", function () {
+//   // Elements
+//   const startPage = document.getElementById("startPage");
+//   const gamePage = document.getElementById("gamePage");
+//   const startButton = document.getElementById("startButton");
+
+//   // Event listeners
+//   startButton.addEventListener("click", startGame);
+
+//   // Function to start the game
+//   function startGame() {
+//       startPage.style.display = "none";
+//       gamePage.style.display = "block";
+//       resumeGame(); // Assuming you have a function to start/resume the game
+//   }
+// });
+
+
+
+window.onload = function() {
+  showPopup();
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  showPopup();
+});
+
+
+function showPopup() {
+  popup.classList.remove('hide');
+  body.style.filter = 'blur(10px)';
+}
+
+function closePopup() {
+  const popup = document.getElementById('popup');
+  popup.classList.add('hide');
+  body.style.filter = 'none';
+}
+
+
+
+function showNewPopup() {
+  const newPopup = document.getElementById('newPopup');
+  newPopup.classList.remove('hide');
+  startScreen.style.filter = 'blur(5px)';
+}
+
+function closeNewPopup() {
+  const newPopup = document.getElementById('newPopup');
+  newPopup.classList.add('hide');
+
+  // Unblur the start screen
+  const startScreen = document.querySelector('.startScreen');
+  startScreen.style.filter = 'none';
+}
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
   // Elements
   const startPage = document.getElementById("startPage");
   const gamePage = document.getElementById("gamePage");
   const startButton = document.getElementById("startButton");
+
+  // Audio
+  const backgroundMusic = document.getElementById("backgroundMusic");
 
   // Event listeners
   startButton.addEventListener("click", startGame);
@@ -948,7 +1014,8 @@ document.addEventListener("DOMContentLoaded", function () {
       startPage.style.display = "none";
       gamePage.style.display = "block";
       resumeGame(); // Assuming you have a function to start/resume the game
+
+      // Play background music
+      backgroundMusic.play();
   }
 });
-
-
