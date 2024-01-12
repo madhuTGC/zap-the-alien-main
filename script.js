@@ -1,5 +1,150 @@
-
+var url = new URL(window.location.href);
+var urlParams = new URLSearchParams(window.location.search);
+let paramUserID = urlParams.get('Email');
+let ParamOrgID= urlParams.get('OrgID');
+ let M2OstAssesmentID= urlParams.get('M2ostAssessmentId');
+let id_game=urlParams.get('idgame');
+let gameAssesmentId=urlParams.get('gameassid');
 let currentQuestionIndex=0;
+let UID=[];
+
+
+
+
+
+
+async function getIdUser(url=`https://www.playtolearn.in/Mini_games_beta/api/UserDetail?OrgId=${ParamOrgID}&Email=${paramUserID}`){
+ try{
+ const response= await fetch(url, { method: 'GET' });
+ const encryptedData = await response.json();
+ const IdUser=JSON.parse(encryptedData);
+ console.log(encryptedData);
+ UID.push(IdUser);
+ console.log(UID[0].Id_User);
+ getDetails();
+ loader.style.display = "none";
+ return encryptedData;
+ 
+ }
+ catch (error) {
+ console.error('Fetch error:', error.message);
+ throw error;
+ }
+}
+
+async function getDetails(url =`https://www.playtolearn.in/Mini_games_beta/api/GetAssessmentDataList?OrgID=${ParamOrgID}&UID=${UID[0].Id_User}&M2ostAssessmentId=${M2OstAssesmentID}&idgame=${id_game}&gameassid=${gameAssesmentId}`) {
+ try {
+ const response = await fetch(url, { method: 'GET' });
+
+ // if (!response.ok) {
+ // throw new Error(`Network response was not ok, status code: ${response.status}`);
+ // }
+
+ const encryptedData = await response.json();
+ QuestionList=JSON.parse(encryptedData);
+ console.log('ResponseData',QuestionList);
+
+
+ // Assuming the response is the encrypted data
+ 
+
+ 
+ return encryptedData;
+ } catch (error) {
+ console.error('Fetch error:', error.message);
+ throw error;
+ }
+}
+
+
+function initializePage() {
+ try {
+ getIdUser();
+ 
+ 
+ } catch (error) {
+ // console.error('Error during initialization:', error.message);
+ }
+}
+
+document.addEventListener('DOMContentLoaded', initializePage);
+
+
+let getResponse;
+
+
+
+
+ async function saveAssessment(data) {
+ let postData = data;
+ 
+ 
+ const baseUrl = 'https://www.playtolearn.in/';
+ const endpoint = 'Mini_games_beta/api/assessmentdetailuserlog';
+ const url = baseUrl + endpoint;
+ 
+ 
+ 
+ const response = await fetch(url, {
+ method: 'POST',
+ headers: {
+ 'Content-Type': 'application/json',
+ // Add any additional headers if required
+ },
+ body: JSON.stringify(postData),
+ });
+ 
+ // if (!response.ok) {
+ // throw new Error(`Network response was not ok, status code: ${response.status}`);
+ // }
+ console.log('response',response);
+ const responseData = await response.json();
+
+ 
+ 
+ return responseData;
+ }
+ async function saveAssessmentMasterLog(data) {
+ let postData = data;
+ console.log( JSON.stringify(postData));
+ 
+ 
+ const baseUrl = 'https://www.playtolearn.in/';
+ const endpoint = 'Mini_games_beta/api/gameusermasterlog';
+ const url = baseUrl + endpoint;
+ 
+ 
+ 
+ const response = await fetch(url, {
+ method: 'POST',
+ headers: {
+ 'Content-Type': 'application/json',
+ // Add any additional headers if required
+ },
+ body: JSON.stringify(postData),
+ });
+
+ 
+ // if (!response.ok) {
+ // throw new Error(`Network response was not ok, status code: ${response.status}`);
+ 
+ // }
+// console.log('response',response);
+ const responseData = await response.json();
+ 
+ 
+ return responseData;
+ }
+ 
+
+
+
+
+
+
+
+
+// let currentQuestionIndex=0;
 
 
 
@@ -623,76 +768,213 @@ function displayQuestion() {
 
 
 
+// function displayQuestionInModal(questionObj) {
+//   const question = questionObj.Assessment_Question;
+//   const options = questionObj.optionList;
+
+
+//   // Display question number and text
+//   const questionNumber = currentQuestionIndex + 1;
+//   $('#questionText').html(`${question}`);
+
+//   // Clear existing options
+//   $('.radio-container').empty();
+
+//   // Iterate over options and create radio buttons
+//   options.forEach((option, index) => {
+//       const optionLabel = $("<label>").text(option.Answer_Description);
+//       const optionInput = $("<input>").attr({
+//           type: "radio",
+//           name: "group",
+//           value: `${index + 1}`
+//       });
+
+//       optionLabel.prepend(optionInput);
+//       $('.radio-container').append(optionLabel);
+//   });
+
+
+
+
+//   $('#continueButton').off('click').on('click', function () {
+//       const selectedOption = $('input[name=group]:checked').val();
+//       console.log('Selected Option:', selectedOption);  
+   
+//       if (selectedOption) {
+//           $('#questionModal').modal('hide');
+//           // currentQuestionIndex++;
+//           resumeGame();
+         
+//           const errorTextElement = $('#error-text');
+//           errorTextElement.text("");
+
+
+//           const option=questionObj.optionList
+         
+
+//           // const correctOptions = options.filter((option) => option.Right_Ans === 2);
+
+//               console.log("c",selectedOption);
+//               console.log("q",QuestionList[currentQuestionIndex - 1].optionList[0].Right_Ans)
+
+//           if (selectedOption == QuestionList[currentQuestionIndex - 1].optionList[0].Right_Ans) {
+//               // scores += 10;
+//               // console.log(scores);
+//               console.log("correct answer");
+//               // console.log(QuestionList[currentQuestionIndex - 1].optionList[0].Right_Ans);
+//           } else {
+//               console.log("wrong answer");
+//           }
+          
+//       }else {
+//           const errorTextElement = $('#error-text');
+//           errorTextElement.text("Click Any One Option");
+          
+//       }
+      
+//   });
+
+
+
+
+
+
+
+
+
 function displayQuestionInModal(questionObj) {
   const question = questionObj.Assessment_Question;
+  const content = questionObj.assessment_question_url;
+ 
+ 
   const options = questionObj.optionList;
-
-
+  var assessmentType = questionObj.Assessment_Type;
+  var contentDiv = $('#contentDiv');
+  
+  // Clear existing content in contentDiv
+  contentDiv.empty();
+  
+  // Depending on the assessment type, add the corresponding content
+  if (assessmentType === 1) {
+  // Add image
+  var imageUrl = questionObj.assessment_question_url;
+  var imageElement = $('<img>').attr('src', imageUrl).attr('alt', 'Image Alt Text').css({
+  'width': '100%',
+  'max-width': '100%',
+  'height': '26vh',
+  'border-radius':'10px'
+  });
+  contentDiv.append(imageElement);
+  } else if (assessmentType === 2) {
+  // Add audio
+  var audioUrl = questionObj.assessment_question_url;
+  var audioElement = $('<audio controls>').attr('src', audioUrl);
+  contentDiv.append(audioElement);
+  } else if (assessmentType === 3) {
+  // Add video
+  var videoUrl = questionObj.assessment_question_url;
+  var videoElement = $('<video controls>').attr('src', videoUrl).css({
+  'width': '100%',
+  'max-width': '100%',
+  'height': '26vh',
+  });
+  contentDiv.append(videoElement);
+  } else {
+  // Handle other assessment types or provide a default behavior
+  contentDiv.text('Unsupported assessment type');
+  }
+ 
+ 
+ 
+ // Empty the contentDiv and append the new image
+ $('#contentDiv').empty().append(imageElement);
+ 
   // Display question number and text
   const questionNumber = currentQuestionIndex + 1;
+  
   $('#questionText').html(`${question}`);
-
+ 
   // Clear existing options
   $('.radio-container').empty();
-
+ 
   // Iterate over options and create radio buttons
   options.forEach((option, index) => {
-      const optionLabel = $("<label>").text(option.Answer_Description);
-      const optionInput = $("<input>").attr({
-          type: "radio",
-          name: "group",
-          value: `${index + 1}`
-      });
-
-      optionLabel.prepend(optionInput);
-      $('.radio-container').append(optionLabel);
+  const optionLabel = $("<label>").text(option.Answer_Description);
+  const optionInput = $("<input>").attr({
+  type: "radio",
+  name: "group",
+  value: `${index + 1}`
   });
-
-
-
-
+ 
+  optionLabel.prepend(optionInput);
+  $('.radio-container').append(optionLabel);
+  });
+ 
+  
+ 
+ 
   $('#continueButton').off('click').on('click', function () {
-      const selectedOption = $('input[name=group]:checked').val();
-      console.log('Selected Option:', selectedOption);  
-   
-      if (selectedOption) {
-          $('#questionModal').modal('hide');
-          // currentQuestionIndex++;
-          resumeGame();
-         
-          const errorTextElement = $('#error-text');
-          errorTextElement.text("");
-
-
-          const option=questionObj.optionList
-         
-
-          // const correctOptions = options.filter((option) => option.Right_Ans === 2);
-
-              console.log("c",selectedOption);
-              console.log("q",QuestionList[currentQuestionIndex - 1].optionList[0].Right_Ans)
-
-          if (selectedOption == QuestionList[currentQuestionIndex - 1].optionList[0].Right_Ans) {
-              // scores += 10;
-              // console.log(scores);
-              console.log("correct answer");
-              // console.log(QuestionList[currentQuestionIndex - 1].optionList[0].Right_Ans);
-          } else {
-              console.log("wrong answer");
-          }
-          
-      }else {
-          const errorTextElement = $('#error-text');
-          errorTextElement.text("Click Any One Option");
-          
-      }
-      
+  const selectedOption = $('input[name=group]:checked').val();
+  
+  
+  if (selectedOption) {
+  $('#questionModal').modal('hide');
+  // currentQuestionIndex++;
+  resumeGame();
+  
+  const errorTextElement = $('#error-text');
+  errorTextElement.text("");
+  const option=questionObj.optionList;
+  console.log(option);
+  AssementData.push(questionObj);
+ 
+  // let scores=10;
+  console.log(selectedOption);
+  console.log('Right_ans',QuestionList[currentQuestionIndex - 1].optionList[selectedOption-1]);
+  if (QuestionList[currentQuestionIndex - 1].optionList[selectedOption-1].Right_Ans=='1') {
+      console.log('correct ans')
+  
+  id_question=QuestionList[currentQuestionIndex - 1].optionList[selectedOption-1].Id_Assessment_question_ans;
+  GivenAns = '1';
+  scores = 10;
+  } else {
+  console.log('wrong answer');
+  // Incorrect answer
+  id_question=QuestionList[currentQuestionIndex - 1].optionList[selectedOption-1].Id_Assessment_question_ans;
+  GivenAns = '2';
+  scores = 0; 
+  }
+  
+  // Create an object with assessment data
+  const assessmentAnsResponse = {'isRightAns': GivenAns, 'AchieveScore': scores,'id_question':id_question};
+  // Log the AssementData array
+  assessmentObject.push(assessmentAnsResponse);
+ 
+  }else {
+  const errorTextElement = $('#error-text');
+  errorTextElement.text("Click any one option");
+  // setTimeout(function () {
+  // $('#questionModal').modal('show');
+  
+  
+  // }, 0);
+  }
+  
   });
+ 
 
 
 
 
-  let timer = 3000; // Set the timer duration in seconds
+  let rank=0;
+  let scores=10;
+  let AssementData=[];
+  let assessmentObject=[];
+  let GivenAns;
+
+
+
+  let timer = 30; // Set the timer duration in seconds
   const timerElement = $('#timer');
   timerElement.text(`${timer} sec`);
 
@@ -762,7 +1044,55 @@ function resumeGame() {
 }
 
 function onGameOver(){
-  isGamePaused= true
+    isGamePaused= true
+
+    const mergedData = AssementData.map((game, index) => ({ ...game, ...assessmentObject[index] }));
+
+    console.log(mergedData);
+    let assessmentData =[];
+    let assementDataForMasterLog=[];
+
+    var sum=0;
+    for (let i = 0; i < mergedData.length; i++) {
+    
+    sum=mergedData[i].AchieveScore + sum ;
+    console.log('inSum',sum);
+    
+    
+    
+    // i=1;mergedData
+    let model = {
+    ID_ORGANIZATION: ParamOrgID,
+    id_user:UID[0].Id_User,
+    Id_Assessment: mergedData[i].Id_Assessment,
+    Id_Game: mergedData[i].Id_Game,
+    attempt_no: mergedData[i].allow_attempt,
+    id_question:mergedData[i].Id_Assessment_question,
+    is_right: mergedData[i].isRightAns,
+    score: mergedData[i].AchieveScore,
+    Id_Assessment_question_ans:mergedData[i].id_question,
+    Time: mergedData[i].Timer,
+    M2ostAssessmentId: M2OstAssesmentID
+    };
+    console.log('OutSum',sum);
+    let modelForGameMasterLog = {
+    ID_ORGANIZATION: ParamOrgID,
+    id_user:UID[0].Id_User,
+    Id_Room: mergedData[0].Id_Assessment,
+    Id_Game: mergedData[0].Id_Game,
+    attempt_no: mergedData[0].allow_attempt,
+    score:sum,
+  
+  };
+
+  assessmentData.push(model);
+  assementDataForMasterLog.push(modelForGameMasterLog);
+  }
+  console.log('AssesmentLog',assementDataForMasterLog);
+ 
+  saveAssessment(assessmentData);
+  saveAssessmentMasterLog(assementDataForMasterLog[assementDataForMasterLog.length - 1]);
+  showNewPopup()
 }
 
 
@@ -814,7 +1144,66 @@ function handleKeyPress(e) {
   }
 }
 
+// function shootBullet(left) {
+//   var bullet = document.createElement("div");
+//   bullet.classList.add("bullets");
+//   board.appendChild(bullet);
+
+//   var movebullet = setInterval(() => {
+//     var rocks = document.getElementsByClassName("rocks");
+
+//     for (var i = 0; i < rocks.length; i++) {
+//       var rock = rocks[i];
+//       if (rock != undefined) {
+//         var rockbound = rock.getBoundingClientRect();
+//         var bulletbound = bullet.getBoundingClientRect();
+
+//         if (
+//           bulletbound.left >= rockbound.left &&
+//           bulletbound.right <= rockbound.right &&
+//           bulletbound.top <= rockbound.top &&
+//           bulletbound.bottom <= rockbound.bottom
+//         ) {
+//           rock.parentElement.removeChild(rock);
+//           displayQuestion();
+//         }
+//       }
+//     }
+
+//     var bulletbottom = parseInt(
+//       window.getComputedStyle(bullet).getPropertyValue("bottom")
+//     );
+
+//     if (bulletbottom >= 1000) {
+//       clearInterval(movebullet);
+//     }
+
+//     bullet.style.left = left + "px";
+//     bullet.style.bottom = bulletbottom + 3 + "px";
+//   });
+// }
+
+
+
+// Add this function to create a blast effect
+function createBlast(left, top) {
+  console.log("madhu")
+  var blast = document.createElement("div");
+  blast.classList.add("blast");
+  blast.style.left = left + "px";  // Corrected: Added "px"
+  blast.style.top = top + "px";   // Corrected: Added "px"
+  board.appendChild(blast);
+
+  // Remove the blast element after a certain duration
+  setTimeout(() => {
+    blast.remove();
+  }, 1000); // Adjust the duration as needed
+}
+
+
 function shootBullet(left) {
+  const backgroundMusic1 = document.getElementById("backgroundMusic1");
+
   var bullet = document.createElement("div");
   bullet.classList.add("bullets");
   board.appendChild(bullet);
@@ -822,11 +1211,13 @@ function shootBullet(left) {
   var movebullet = setInterval(() => {
     var rocks = document.getElementsByClassName("rocks");
 
+
     for (var i = 0; i < rocks.length; i++) {
       var rock = rocks[i];
       if (rock != undefined) {
         var rockbound = rock.getBoundingClientRect();
         var bulletbound = bullet.getBoundingClientRect();
+
 
         if (
           bulletbound.left >= rockbound.left &&
@@ -834,9 +1225,18 @@ function shootBullet(left) {
           bulletbound.top <= rockbound.top &&
           bulletbound.bottom <= rockbound.bottom
         ) {
+          createBlast(bulletbound.left, bulletbound.top);
+          backgroundMusic1.play();
+          setTimeout(() => {
+            backgroundMusic1.pause();
+            backgroundMusic1.currentTime = 0;
+          }, 1000); // Stop after 1 second
+
           rock.parentElement.removeChild(rock);
           displayQuestion();
+          // Call the blast effect function with the position of the collision
         }
+
       }
     }
 
@@ -851,7 +1251,10 @@ function shootBullet(left) {
     bullet.style.left = left + "px";
     bullet.style.bottom = bulletbottom + 3 + "px";
   });
+
 }
+
+
 
 
 
