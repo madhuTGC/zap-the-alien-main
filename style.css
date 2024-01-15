@@ -57,7 +57,7 @@
     right: 30px;
     cursor: pointer;
     font-size: 80px;
-    color: #333;
+    color: #bdb1b1;
 }
 
 
@@ -123,9 +123,9 @@ body {
     position: absolute;
     bottom: 40px;
     left: 51%;
-    width: 1.5vw;
-    height: 1.5vh;
-    background: url("bullet.png");
+    width: 5vw;
+    height: 5vh;
+    background: url("fire-removebg-preview.png");
     background-size: contain;
     background-repeat: no-repeat;
   }
@@ -158,17 +158,17 @@ body {
   
   .modal-content {
   /* background-color: #aae4f3;  */
-  background-color: rgb(18, 17, 17);
+  background-color: white;
   border-radius: 50px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow */
   background-size: cover; /* or 'contain' based on your preference */
-  border: 5px solid #bec536;
+  border: 5px solid #6514DD;
   /* border-radius: 10px; */
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
-  width:90%; /* Set your desired width */
+  width:96%; /* Set your desired width */
   max-width: 800px; /* Set your desired maximum width */
   /* margin: auto;  */
-  margin: 1rem;
+  /* margin: 1rem; */
   }
   
   
@@ -206,8 +206,10 @@ body {
   
   #contentDiv{
   height: auto;
-  max-height: 25vh;
-  margin: 2%;
+  /* max-height: 25vh; */
+  /* margin: 2%; */
+  margin: 0% 0% 1% 0%;
+
   
   }
   
@@ -241,7 +243,7 @@ body {
     border-radius: 17px;
     font-size: 21px;
     background-color: rgb(233, 236, 210);
-    color: #131212;
+    color: #6514DD;
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
@@ -249,12 +251,12 @@ body {
     width: 100%;
     box-sizing: border-box;
     animation: fadeInLeft 0.5s ease;
-    border: 2px solid rgb(182, 225, 81);
+    border: 5px solid #6514DD;
     font-weight: 600;
 }
   
   .radio-container label:hover {
-  background-color: #a2a9af;
+  background-color: #e0a1b4;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   /* transform: scale(1.1);  */
   }
@@ -269,8 +271,8 @@ body {
   
   #continueButton {
       
-      color: #0b0b0b;
-      background-color:#d8e452;
+      color: white;
+      background-color:#6514DD;
       padding: 20px;
       height: 12vh;
       width: 12vw;
@@ -324,9 +326,9 @@ body {
      font-size: 1.5em;
      font-weight: 600;
      margin-bottom: 0.1px;
-     color: #090808;
+     color: white;
      text-align: left;
-     background-color: #d8e452;
+     background-color: #6514DD;
      border-radius: 17px;
      padding: 0.5rem;
   
@@ -346,7 +348,7 @@ body {
      color: #0c0b0b;
      font-size: 1.3em;
      background-color: white;
-     border: yellow;
+     border: 5px solid #6514DD;
      position: relative;
      /* padding: 5px; */
      box-shadow: 0 0 10px rgba(41, 38, 38, 0.2);
