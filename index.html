@@ -11,15 +11,15 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <script src="script.js" defer></script>
-  <body>
+  <body id="bg-filter">
     
     <audio id="backgroundMusic" loop>
-      <source src="background-music.wav" type="audio/mp3">
+      <!-- <source src="background-music.wav" type="audio/mp3"> -->
       <!-- Your browser does not support the audio element. -->
     </audio>
 
     <audio id="backgroundMusic1" loop>
-      <source src="bang.wav" type="audio/mp3">
+      <!-- <source src="bang.wav" type="audio/mp3"> -->
       <!-- Your browser does not support the audio element. -->
     </audio>
 
@@ -27,7 +27,7 @@
     <div id="popup" class="popup hide">
       <span class="close" onclick="closePopup()">x</span>
       <img src="Group 36283.png" alt="Popup Image">
-  </div>
+    </div>
 
 
    <div id="newPopup" class="newPopup hide">
@@ -40,13 +40,15 @@
     <div id="startPage">
       <h1 class="text"></h1>
       <!-- <img src="start.jpg" alt="Game Start Image"> -->
+      <img class="logo-img" src="Premium_Vector___Aliens_mascot_logo_esport_template_design-removebg-preview 1.png" alt="">
 
       <button id="startButton">Start Game</button>
     </div>
     <div id="gamePage" style="display: none;">
       <!-- Your existing game board HTML here -->
         <div id="board">
-          <div class="rocks"></div>
+          <!-- <div id="bullets"></div> -->
+          <div id="rock" class="rocks"></div>
           <div id="jet"></div>
     
         </div>

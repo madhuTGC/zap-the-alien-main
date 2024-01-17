@@ -4,25 +4,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    flex-direction: column;
+    gap: 2rem;
+    height: 100vh;
 }
 
 
 #startButton {
-    background-color: #e4f40b;
+    background-color: #b86542;
     color: #040404; 
     padding: 10px 20px;
     font-size: 3rem;
     cursor: pointer;
-    border: 2px solid blue;
+    border: 2px solid #6514DD ;
     border-radius: 15px;
-    margin-top:49rem ;
+    /* margin-top:10rem ; */
    
 
 }
 
 #startButton:hover {
-    background-color: #929f03; 
+    background-color: #8f2231; 
     color: white; 
 
 }
@@ -53,11 +55,15 @@
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 30px;
+    top: 17px;
+    right: 42px;
     cursor: pointer;
-    font-size: 80px;
-    color: #bdb1b1;
+    font-size: 60px;
+    color: #f0e7e6;
+}
+
+.close:hover{
+    color: #6514DD;
 }
 
 
@@ -76,7 +82,7 @@
 }
 
 .newPopup img {
-    width: 90%;
+    width: 100%;
     height: 100%;
 }
 
@@ -86,13 +92,16 @@
 
 
 
-body {
-    width: 100%;
+#bg-filter {
     overflow: hidden;
+    width: 100%;
+    /* overflow: hidden; */
     background: url("ultra-detailed-nebula-abstract-wallpaper-4\ 2.png");
-    background-size: cover;
+    /* background-size: cover; */
     background-repeat: no-repeat;
-    
+    background-position: 100% 100%;
+    background-size: cover;
+    height: 100vh;
   }
   #board {
     position: relative;
@@ -133,8 +142,8 @@ body {
   .rocks {
     position: absolute;
     top: 0px;
-    width: 11vw;
-    height: 11vh;
+    width: 15vw;
+    height: 15vh;
     background: url("Mask\ group-2.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -210,7 +219,6 @@ body {
   /* margin: 2%; */
   margin: 0% 0% 1% 0%;
 
-  
   }
   
   
@@ -239,11 +247,11 @@ body {
   }
   
   .radio-container label {
-    margin-bottom: 10px;
-    border-radius: 17px;
-    font-size: 21px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    font-size: 1em;
     background-color: rgb(233, 236, 210);
-    color: #6514DD;
+    color: #060506;
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
@@ -251,12 +259,16 @@ body {
     width: 100%;
     box-sizing: border-box;
     animation: fadeInLeft 0.5s ease;
-    border: 5px solid #6514DD;
-    font-weight: 600;
+    border: 3px solid #6514DD;
+    font-weight: bolder;
+    background-size: cover;
+    background-position: center center;
+    box-sizing: border-box;
+
 }
   
   .radio-container label:hover {
-  background-color: #e0a1b4;
+  background-color:#c6b6df;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   /* transform: scale(1.1);  */
   }
@@ -267,38 +279,46 @@ body {
   input{
   margin-right: 2%;
   }
+
+
   
   
   #continueButton {
       
-      color: white;
       background-color:#6514DD;
-      padding: 20px;
-      height: 12vh;
-      width: 12vw;
-      cursor: pointer;
-      font-size: 1.5rem;
-      font-weight: 600;
-      /* clip-path: polygon(15% 40%, 76% 40%, 90% 57%, 76% 73%, 13% 73%, 0 57%); */
-      /* clip-path: polygon(15% 37%, 76% 38%, 86% 57%, 75% 73%, 16% 73%, 4% 57%); */
-      clip-path: polygon(14% 33%, 77% 34%, 86% 57%, 76% 80%, 14% 80%, 4% 57%);
-      /* text-align: center; */
-      padding-bottom: 1px;
-      padding-left: 2px;
+      color: #fef9f9;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        /* padding: 20px; */
+        /* height: 12vh; */
+        height: 5vh;
+        width: 16vw;
+        /* width: 20vw; */
+        cursor: pointer;
+        font-size: 1.5rem;
+        font-weight: 600;
+        
+        padding-bottom: 1px;
+        padding-left: 2px;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       
   }
   
   
   
   #continueButton:hover {
-  background-color: #808181; /* Change background color on hover */
+  background-color: #c6b6df; 
+  color: black;
+
   }
   
   
   #error-text {
   color: #c30202; 
-  font-size: 1.5rem; /* Font size */
-  margin-top: 10px; /* Margin at the top */
+  font-size: 1.5rem; 
+  margin-top: 10px; 
   font-weight: 500;
   text-align: center;
   }
@@ -312,7 +332,7 @@ body {
   
   
   .radio-container {
-     padding: 0% 3%;
+     padding: 0% 2%;
   }
   
   
@@ -323,15 +343,15 @@ body {
   }
   
   #questionText {
-     font-size: 1.5em;
-     font-weight: 600;
-     margin-bottom: 0.1px;
-     color: white;
-     text-align: left;
-     background-color: #6514DD;
-     border-radius: 17px;
-     padding: 0.5rem;
-  
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 0.1px;
+    color: #ebe8e8;
+    text-align: left;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background-color: #6514DD;
+     
   }
   
   
@@ -348,12 +368,12 @@ body {
      color: #0c0b0b;
      font-size: 1.3em;
      background-color: white;
-     border: 5px solid #6514DD;
+     border: 3px solid #6514DD;
      position: relative;
      /* padding: 5px; */
      box-shadow: 0 0 10px rgba(41, 38, 38, 0.2);
      border-radius: 30px;
-     width: 21%;
+     width: 17%;
      height: 5vh;
      display: flex;
      justify-content: end;
@@ -371,22 +391,15 @@ body {
   
   
 
-  #error-text {
-     color: #f01111;
-     font-size: 1.5rem;
-     margin-top: 10px;
-     font-weight: 500;
-     text-align: center;
-  }
+  
   .modal-footer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-     padding-bottom: -0.25rem;
-
-     
-   
-   }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 11vh;
+    
+    
+    }
 
    #timer-icon {
          
@@ -397,6 +410,12 @@ body {
     z-index: 1;
     }
 
+
+    
+    .logo-img{
+      height: 50vh;
+      width: 25vw;
+    }
 
 
   
@@ -471,9 +490,17 @@ body {
 
 
   @media (max-width: 480px) {
+    .logo-img{
+      height: 25vh;
+      width: 40vw;
+    }
 
-
-    
+    #startPage{
+      gap: 10rem;
+  }
+  .popup img {
+    height: 44vh;
+}
 
     .rocks {
         position: absolute;
@@ -488,7 +515,7 @@ body {
 
     #startButton {
         font-size: 2rem; 
-        margin-top: 38rem; 
+        /* margin-top: 38rem;  */
     }
 
   
@@ -508,10 +535,13 @@ body {
         
   
       #continueButton {
-          height: 12vh;
-          width: 40vw; 
-          padding-bottom: 6px;
-  
+        height: 6vh;
+        width: 42vw;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 5px;
       }
      
   
@@ -522,24 +552,23 @@ body {
   
   
   .radio-container {
-     padding: 0% 3%;
+     padding: 0% 4%;
   }
   
   
   
   #questionText {
-      font-weight: 600;
-      color: #c4bfbf; /* Dark text color */
-      text-align: left;
-      margin: 1%;
-     font-size: 1.5em;
-     color: #090808;
-     text-align: left;
-     background-color:#d8e452;
-     border-radius: 17px;
-     padding: 5px;
-  
-  }
+    font-weight: 600;
+    /* color: #c4bfbf; */
+    text-align: left;
+    margin: 0%;
+    font-size: 1em;
+    text-align: left;
+    /* background-color: #006bfa; */
+    border-radius: 13px;
+    padding: 0.5rem;
+   
+   }
   
   
   .modal-footer {
@@ -562,12 +591,12 @@ body {
   }
   
   .timerContainer {
-      width: 40%;
+      width: 36%;
       text-align: end;
      color: #0c0b0b;
      font-size: 1.3em;
      background-color: white;
-     border: yellow;
+     border: 3px solid #6514DD;
      position: relative;
      /* padding: 5px; */
      box-shadow: 0 0 10px rgba(41, 38, 38, 0.2);
@@ -582,11 +611,7 @@ body {
   }
   
   
-      .gameArea {
-          width: calc(100% - 14px);
-          height: 100vh;
-          background: #2d3436;
-      }
+      
   
   
   #error-text {
@@ -606,6 +631,32 @@ body {
   
       }
      
+
+
+      .radio-container label::before{
+        background: rgba(255, 255, 255, 0.2);
+       }
+      .radio-container label {
+        margin-bottom: 4px;
+        border-radius: 10px;
+        font-size: 1em;
+        background-color: white;
+        color: #131212;
+        padding: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        background: url(./assets/images/Road.png);
+        background-size: cover;
+        background-position: center center;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        font-weight: bolder;
+        animation: fadeInLeft 0.5s ease;
+        border: 2px solid black;
+    }
+     
+}
   
-  }
+
   

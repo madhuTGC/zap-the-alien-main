@@ -749,6 +749,8 @@ function displayQuestion() {
 
   if (!isGamePaused && currentQuestionIndex < QuestionList.length) {
     pauseGame();
+    document.getElementById('rock').style.display = 'none';
+    document.getElementById('jet').style.display = 'none'
     const currentQuestion = QuestionList[currentQuestionIndex];
     displayQuestionInModal(QuestionList[currentQuestionIndex]);
     currentQuestionIndex++;
@@ -883,13 +885,13 @@ function displayQuestionInModal(questionObj) {
   contentDiv.append(videoElement);
   } else {
   // Handle other assessment types or provide a default behavior
-  contentDiv.text('Unsupported assessment type');
+  // contentDiv.text('Unsupported assessment type');
   }
  
  
  
  // Empty the contentDiv and append the new image
- $('#contentDiv').empty().append(imageElement);
+//  $('#contentDiv').empty().append(imageElement);
  
   // Display question number and text
   const questionNumber = currentQuestionIndex + 1;
@@ -922,6 +924,8 @@ function displayQuestionInModal(questionObj) {
   if (selectedOption) {
   $('#questionModal').modal('hide');
   // currentQuestionIndex++;
+  document.getElementById('jet').style.display = 'block'
+
   resumeGame();
   
   const errorTextElement = $('#error-text');
@@ -972,7 +976,7 @@ function displayQuestionInModal(questionObj) {
   
 
 
-  let timer = 3000; // Set the timer duration in seconds
+  let timer = 30; // Set the timer duration in seconds
   const timerElement = $('#timer');
   timerElement.text(`${timer} sec`);
 
@@ -984,6 +988,7 @@ function displayQuestionInModal(questionObj) {
       } else {
           clearInterval(timerInterval);
           // Time's up, handle it as needed
+
           onTimeUp();
       }
   }, 1000);
@@ -1000,6 +1005,7 @@ function displayQuestionInModal(questionObj) {
 
 function onTimeUp() {
     // Handle the timeout logic here
+
     isGamePaused = true; // Set player start to true to resume the game
     // gameStart.play(); // Play the game start audio
 
@@ -1007,10 +1013,14 @@ function onTimeUp() {
     $('input[name=group]').first().prop('checked', true);
 
     // Proceed to the next question
+    // document.getElementById('jet').style.display = 'block'
+
     resumeGame();
 
     // Hide the question modal
     $('#questionModal').modal('hide');
+    document.getElementById('jet').style.display = 'block'
+
 }
 
 
@@ -1028,6 +1038,7 @@ function resumeGame() {
   if (currentQuestionIndex <= QuestionList.length) {
     // window.requestAnimationFrame(gamePlay);
     isGamePaused = false;
+    
     generaterocks = setInterval(generateRocks, 1000);
     moverocks = setInterval(moveRocks,100);
     backgroundMusic.play();
@@ -1090,6 +1101,7 @@ console.log('AssesmentLog',assementDataForMasterLog);
 
 saveAssessment(assessmentData);
 saveAssessmentMasterLog(assementDataForMasterLog[assementDataForMasterLog.length - 1]);
+
 showNewPopup()
 }
 
@@ -1115,7 +1127,7 @@ jet.addEventListener("touchmove", (e) => {
 
   if (touchMoveX < touchStartX && left > 0) {
     jet.style.left = left - 10 + "px"; // Move left
-  } else if (touchMoveX > touchStartX && left <= 300) {
+  } else if (touchMoveX > touchStartX && left <= 250) {
     jet.style.left = left + 10 + "px"; // Move right
   }
 
@@ -1184,19 +1196,7 @@ function handleKeyPress(e) {
 
 
 // Add this function to create a blast effect
-function createBlast(left, top) {
-  console.log("madhu")
-  var blast = document.createElement("div");
-  blast.classList.add("blast");
-  blast.style.left = left + "px";  // Corrected: Added "px"
-  blast.style.top = top + "px";   // Corrected: Added "px"
-  board.appendChild(blast);
 
-  // Remove the blast element after a certain duration
-  setTimeout(() => {
-    blast.remove();
-  }, 1000); // Adjust the duration as needed
-}
 
 
 // function shootBullet(left) {
@@ -1284,6 +1284,8 @@ function shootBullet(left) {
 
           rock.parentElement.removeChild(rock);
           displayQuestion();
+          
+
           // Call the blast effect function with the position of the collision
         }
       }
@@ -1412,6 +1414,7 @@ jet.addEventListener("touchmove", (e) => {
 
 window.onload = function() {
   showPopup();
+  
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -1421,18 +1424,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function showPopup() {
   popup.classList.remove('hide');
-  body.style.filter = 'blur(10px)';
+  // bg=document.getElementById('bg-filter');
+  // bg.style.filter = 'blur(10px)'
+  // body.style.filter = 'blur(10px)';
+  button=document.getElementById('startButton');
+  button.style.display = 'none';
 }
 
 function closePopup() {
   const popup = document.getElementById('popup');
   popup.classList.add('hide');
-  body.style.filter = 'none';
+  // body.style.filter = 'none';
+  button=document.getElementById('startButton');
+  button.style.display = 'block';
 }
 
 
 
 function showNewPopup() {
+  document.getElementById('jet').style.display = 'none'
+
+
   isGamePaused=true
   backgroundMusic.pause()
   const newPopup = document.getElementById('newPopup');
