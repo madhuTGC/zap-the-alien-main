@@ -107,7 +107,10 @@
     position: relative;
     /* width: 50vw; */
     background-image: url(ultra-detailed-nebula-abstract-wallpaper-4\ 2.png);
-
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    background-size: cover;
+    height: 100vh;
     width: 90vw;
     height: 80vh;
     margin: 40px auto;
@@ -404,7 +407,7 @@
    #timer-icon {
          
     width: 5vh;
-    height: 5vh;
+    height: 4vh;
     position: absolute;
     left:0%;
     z-index: 1;
@@ -505,8 +508,8 @@
     .rocks {
         position: absolute;
         top: 0px;
-        width: 15vw;
-        height: 15vh;
+        width: 18vw;
+        height: 18vh;
         background: url("alien.png");
         background-size: contain;
         background-repeat: no-repeat;
