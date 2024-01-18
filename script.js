@@ -1278,15 +1278,16 @@ function shootBullet(left) {
           bulletbound.bottom <= rockbound.bottom
         ) {
           // createBlast(bulletbound.left, bulletbound.top);
-          backgroundMusic1.play();
-          setTimeout(() => {
-            backgroundMusic1.pause();
-            backgroundMusic1.currentTime = 0;
-          }, 1000); // Stop after 1 second
+          
 
           // console.log("rockbound",rockbound);
           // console.log("bulletbound",bulletbound.y);
           if (bulletbound.y >=80){
+            backgroundMusic1.play();
+            setTimeout(() => {
+              backgroundMusic1.pause();
+              backgroundMusic1.currentTime = 0;
+            }, 1000); // Stop after 1 second
             rock.parentElement.removeChild(rock);
 
             displayQuestion();
