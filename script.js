@@ -1284,10 +1284,11 @@ function shootBullet(left) {
             backgroundMusic1.currentTime = 0;
           }, 1000); // Stop after 1 second
 
-          rock.parentElement.removeChild(rock);
-          console.log("rockbound",rockbound);
-          console.log("bulletbound",bulletbound.y);
-          if (bulletbound.y >=30){
+          // console.log("rockbound",rockbound);
+          // console.log("bulletbound",bulletbound.y);
+          if (bulletbound.y >=80){
+            rock.parentElement.removeChild(rock);
+
             displayQuestion();
 
             
